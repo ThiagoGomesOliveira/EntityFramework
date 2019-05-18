@@ -1,6 +1,6 @@
 ﻿namespace Alura.Loja.Testes.ConsoleApp
 {
-    internal class Produto
+    public class Produto
     {
         public int Id { get; internal set; }
         public string Nome { get; internal set; }
@@ -11,7 +11,7 @@
 
         public override string ToString()
         {
-            return $"Nome: {this.Nome} Categoria {this.Categoria} Preço {this.Preco}"; 
+            return $"Nome: {this.Nome} Categoria {this.Categoria} Preço {this.Preco}";
         }
     }
 }

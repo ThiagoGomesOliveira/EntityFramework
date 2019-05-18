@@ -22,35 +22,33 @@ namespace Alura.Loja.Testes.ConsoleApp
         {
             GravarUsandoEntity();
             RecuperarProdutos();
-            using (var repo = new LojaContext())
+            using (var repo = new ProdutoDaoEntity())
             {
-                var produto = repo.Produtos.ToList().FirstOrDefault();
+                var produto = repo.Produtos().FirstOrDefault();
                 produto.Nome = "Harry Potter e a Ordem da Fênix - editado";
-                repo.Produtos.Update(produto);
-                repo.SaveChanges();
+                repo.Atualizar(produto);
             }
             RecuperarProdutos();
         }
 
         private static void ExcluirProdutos()
         {
-            using (var repo = new LojaContext())
+            using (var repo = new ProdutoDaoEntity())
             {
-                IList<Produto> produtos = repo.Produtos.ToList();
+                IList<Produto> produtos = repo.Produtos();
                 foreach (var produto in produtos)
                 {
-                    repo.Produtos.Remove(produto);
+                    repo.Remover(produto);
                     
                 }
-                repo.SaveChanges();
             }
         }
 
         private static void RecuperarProdutos()
         {
-            using (var repo = new LojaContext())
+            using (var repo = new ProdutoDaoEntity())
             {
-                IList<Produto> produtos = repo.Produtos.ToList();
+                IList<Produto> produtos = repo.Produtos();
                 Console.WriteLine("foram encontrados {0} produto(s) ",produtos.Count);
                 foreach (var produto in produtos)
                 {
@@ -66,10 +64,9 @@ namespace Alura.Loja.Testes.ConsoleApp
             p.Categoria = "Livros";
             p.Preco = 19.89;
 
-            using (var repo = new LojaContext())
+            using (var repo = new ProdutoDaoEntity())
             {
-                repo.Produtos.Add(p);
-                repo.SaveChanges();
+                repo.Adicionar(p);
             }
         }
 

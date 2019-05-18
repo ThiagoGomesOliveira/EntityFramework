@@ -10,12 +10,43 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            //GravarUsandoAdoNet();
-          //  GravarUsandoEntity();
-           // RecuperarProdutos();
-           // ExcluirProdutos();
-          //  RecuperarProdutos();
-            AtualizarProdutos();
+            using (var contexto = new LojaContext())
+            {
+
+                var produtos = contexto.Produtos;
+                foreach (var produto in produtos)
+                {
+                    Console.WriteLine(produto);
+                }
+                Console.WriteLine("=====================");
+
+                foreach (var item in contexto.ChangeTracker.Entries())
+                {
+                    Console.WriteLine(item.State);
+                }
+
+                var p3 = contexto.Produtos.Last();
+                p3.Nome = "Fiat uno";
+                p3.Preco = 11.567;
+                              
+               
+
+                Console.WriteLine("=====================");
+              
+                foreach (var produto in contexto.Produtos.ToList())
+                {
+                    Console.WriteLine(produto);
+                }
+                Console.WriteLine("=====================");
+
+                foreach (var item in contexto.ChangeTracker.Entries())
+                {
+                    Console.WriteLine(item.State);
+                }
+
+            }
+
+
         }
 
         private static void AtualizarProdutos()
@@ -54,15 +85,16 @@ namespace Alura.Loja.Testes.ConsoleApp
                 {
                     Console.WriteLine(produto);
                 }
+                Console.Read();
             }
         }
 
         private static void GravarUsandoEntity()
         {
             Produto p = new Produto();
-            p.Nome = "Harry Potter e a Ordem da Fênix";
-            p.Categoria = "Livros";
-            p.Preco = 19.89;
+            p.Nome = "Fiat 147";
+            p.Categoria = "automovel";
+            p.Preco = 2.0000;
 
             using (var repo = new ProdutoDaoEntity())
             {
